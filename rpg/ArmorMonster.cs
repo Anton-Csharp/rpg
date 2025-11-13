@@ -30,8 +30,15 @@ namespace rpg
         }
         public override void protect(int damage)
         {
-
-            base.protect(damage);
+            if (damage>Armor)
+            {
+               base.protect(damage - Armor);
+            }
+            else
+            {
+                base.protect(0);
+            }
+            
         }
     }
 }
