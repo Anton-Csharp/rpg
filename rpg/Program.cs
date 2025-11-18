@@ -16,7 +16,9 @@ namespace rpg
         static void Main(string[] args)
         {
             int hp = 100;
-            int damage = 20;
+            int slillPoints = 0;
+            int coins = 0;
+            int damage = 18;
             int Count = 0;
             Console.WriteLine("выбери сложность:");
             Console.WriteLine("1 легкая");
@@ -43,6 +45,7 @@ namespace rpg
             while(true)
             {
                 Count = 0;
+                int num = rnd.Next(2, 3);
                 Console.Clear();
                 Console.WriteLine("Монстры готовы к бою!");
                 Console.WriteLine("выберите монстра для атаки:");
@@ -54,7 +57,87 @@ namespace rpg
                 selectedNum = int.Parse(Console.ReadLine());
 
                 list[selectedNum - 1].protect(damage);
-                Console.WriteLine("Вы атаковали: " + list[selectedNum - 1].Hp+" осталось хп у монстра");
+                if (list[selectedNum-1].Hp <=0)
+                {
+                    Console.WriteLine("Вы убили монстра");
+                    coins += 5;
+                    slillPoints += num;
+                }
+                else
+                {
+                    Console.WriteLine("Вы атаковали: " + list[selectedNum - 1].Hp + " осталось хп у монстра");
+                }
+                Console.WriteLine("нажмите пробел для продолжения");
+                Console.ReadKey(true);
+                Console.WriteLine("ваши монеты:" + coins);
+                Console.WriteLine("хотети купить что нибудь?");
+                Console.WriteLine("1 хилка на 20 хп: 15 монет");
+                Console.WriteLine("2 бафф урона на +10: 20 монет");
+                Console.WriteLine("3 ничего");
+                selectedNum = int.Parse(Console.ReadLine());
+                if (selectedNum == 1)
+                {
+                    if (coins >= 15)
+                    {
+                        hp += 20;
+                        coins -= 15;
+                        Console.WriteLine($"ваше хп:{hp},ваши монеты:{coins}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("у вас недостаточно монет");
+                    }
+
+                }
+                if (selectedNum == 2)
+                {
+                    if (coins >= 20)
+                    {
+                        damage += 10;
+                        coins -= 20;
+                        Console.WriteLine($"ваше дамаг:{damage},ваши монеты:{coins}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("у вас недостаточно монет");
+                    }
+                }
+                Console.WriteLine("нажмите пробел для продолжения");
+                Console.ReadKey(true);
+                Console.WriteLine("ваши поинты:" + slillPoints);
+                Console.WriteLine("хотети прокачать что нибудь?");
+                Console.WriteLine("1 +5хп: 2 поинта");
+                Console.WriteLine("2 бафф урона на +3: 3 поинта ");
+                Console.WriteLine("3 ничего");
+                selectedNum = int.Parse(Console.ReadLine());
+                if (selectedNum == 1)
+                {
+                    if (slillPoints >= 2)
+                    {
+                        hp += 5;
+                        slillPoints -= 2;
+                        Console.WriteLine($"ваше хп:{hp},ваши поинты:{slillPoints}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("у вас недостаточно поинтов");
+                    }
+
+                }
+                if (selectedNum == 2)
+                {
+                    if (slillPoints >= 3)
+                    {
+                        damage += 3;
+                        slillPoints -= 3;
+                        Console.WriteLine($"ваше дамаг:{damage},ваши поинты:{slillPoints}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("у вас недостаточно поинтов");
+                    }
+                }
+
 
                 //Проверка что монстр не здох.
                 Console.WriteLine("Теперь вас атакуют монстры!");
