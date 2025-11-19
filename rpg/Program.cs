@@ -16,6 +16,7 @@ namespace rpg
         static void Main(string[] args)
         {
             int hp = 100;
+            int critChance = 0;
             int slillPoints = 0;
             int coins = 0;
             int damage = 18;
@@ -46,6 +47,7 @@ namespace rpg
             {
                 Count = 0;
                 int num = rnd.Next(2, 3);
+                critChance = rnd.Next(1,4);
                 Console.Clear();
                 Console.WriteLine("Монстры готовы к бою!");
                 Console.WriteLine("выберите монстра для атаки:");
@@ -55,9 +57,19 @@ namespace rpg
                    Console.WriteLine(Count + "  " + item.GetInfo());
                 }
                 selectedNum = int.Parse(Console.ReadLine());
+                if (critChance == 2)
+                {
+                    damage *= 2;
+                    list[selectedNum - 1].protect(damage);
+                    Console.WriteLine("вы нанесли крит урон");
+                    damage /= 2;
+                }
+                else
+                {
+                    list[selectedNum - 1].protect(damage);
+                }
 
-                list[selectedNum - 1].protect(damage);
-                if (list[selectedNum-1].Hp <=0)
+                if (list[selectedNum - 1].Hp <= 0)
                 {
                     Console.WriteLine("Вы убили монстра");
                     coins += 5;
